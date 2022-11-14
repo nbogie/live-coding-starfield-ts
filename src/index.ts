@@ -43,12 +43,18 @@ function createSketch(p: p5) {
 
     function drawAllStars() {
         for (const star of stars) {
-            p.fill(star.colour)
-            p.noStroke()
-            p.circle(star.position.x, star.position.y, star.diameter);
-
+            drawOneStar(star);
         }
     }
+
+    function drawOneStar(star: Star) {
+        p.push()
+        p.fill(star.colour);
+        p.noStroke();
+        p.circle(star.position.x, star.position.y, star.diameter);
+        p.pop()
+    }
+
 
 
     function createAllStars(): Star[] {
