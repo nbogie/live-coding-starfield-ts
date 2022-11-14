@@ -104,7 +104,7 @@ function createSketch(p: p5) {
 
             //wrap
             s.position.x = -50;
-            // s.position.y = p.random(0, p.height);
+            // consider:  s.position.y = p.random(0, p.height);
         }
     }
 
