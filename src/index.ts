@@ -12,6 +12,7 @@ function createSketch(p: p5) {
 
     interface Star {
         position: Position;
+        speed: number;
     }
 
     let stars: Star[];
@@ -41,28 +42,38 @@ function createSketch(p: p5) {
 
     function updateAllStars() {
         for (const star of stars) {
-            star.position.x += 1;
+            updateOneStar(star);
         }
     }
 
+    function updateOneStar(s: Star): void {
+        s.position.x += s.speed;
+    }
 
     function createStars(): Star[] {
         const newStars: Star[] = [];
-        console.log("p.width is ", p.width)
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i < 100; i++) {
 
-            const position: Position = {
-                x: p.random(0, p.width),
-                y: p.random(0, p.height)
-            }
-
-            const star: Star = { position: position };
-            console.log("star is: ", star)
+            const star: Star = createOneStar()
             newStars.push(star);
         }
 
 
 
         return newStars;
+    }
+
+    function createOneStar(): Star {
+        return {
+            position: randomPosition(),
+            speed: p.random(1, 3)
+        };
+    }
+
+    function randomPosition(): Position {
+        return {
+            x: p.random(0, p.width),
+            y: p.random(0, p.height)
+        }
     }
 };
