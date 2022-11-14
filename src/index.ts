@@ -59,7 +59,7 @@ function createSketch(p: p5) {
 
     function createAllStars(): Star[] {
         const newStars: Star[] = [];
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 1000; i++) {
 
             const star: Star = createOneStar()
             newStars.push(star);
@@ -95,10 +95,17 @@ function createSketch(p: p5) {
     function updateOneStar(s: Star): void {
 
         const speedMultiplier = p.map(p.mouseY, 0, p.height, 0.1, 3, true)
-
         s.position.x += speedMultiplier * s.velocity.x;
-
         s.position.y += s.velocity.y;
+
+
+        //wrap if out of bounds
+        if (s.position.x > p.width + 50) {
+
+            //wrap
+            s.position.x = -50;
+            // s.position.y = p.random(0, p.height);
+        }
     }
 
 
