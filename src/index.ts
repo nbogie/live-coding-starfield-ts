@@ -77,7 +77,7 @@ function createSketch(p: p5) {
 
 
     function randomVelocity(): Velocity {
-        return { x: p.random(-3, 3), y: p.random(-3, 3) }
+        return { x: p.random(1, 3), y: 0 }
     }
 
     function randomPosition(): Position {
