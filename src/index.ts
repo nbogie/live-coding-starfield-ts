@@ -18,6 +18,8 @@ function createSketch(p: p5) {
     interface Star {
         position: Position;
         velocity: Velocity;
+        colour: string;
+        diameter: number;
     }
 
     let stars: Star[];
@@ -41,14 +43,17 @@ function createSketch(p: p5) {
 
     function drawAllStars() {
         for (const star of stars) {
-            p.circle(star.position.x, star.position.y, 10);
+            p.fill(star.colour)
+            p.noStroke()
+            p.circle(star.position.x, star.position.y, star.diameter);
+
         }
     }
 
 
     function createAllStars(): Star[] {
         const newStars: Star[] = [];
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 10000; i++) {
 
             const star: Star = createOneStar()
             newStars.push(star);
@@ -58,9 +63,20 @@ function createSketch(p: p5) {
     }
 
     function createOneStar(): Star {
+
+        const palette: string[] = [
+            "#a70267",
+            "#f10c49",
+            "#fb6b41",
+            "#f6d86b",
+            "#339194"
+        ]
+
         return {
             position: randomPosition(),
-            velocity: randomVelocity()
+            velocity: randomVelocity(),
+            colour: p.random(palette),
+            diameter: p.random(5, 30)
         };
     }
 
