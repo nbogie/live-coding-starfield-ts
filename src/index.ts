@@ -20,6 +20,7 @@ function createSketch(p: p5) {
         velocity: Velocity;
         colour: string;
         diameter: number;
+        letter: string;
     }
 
     let stars: Star[];
@@ -51,9 +52,18 @@ function createSketch(p: p5) {
 
 
         const pos = star.position;
+
         p.stroke(255);
         const lineLength = star.velocity.x * 10 * calculateMouseSpeedMultiplier();
-        p.line(pos.x, pos.y, pos.x - lineLength, pos.y);
+        // p.line(pos.x, pos.y, pos.x - lineLength, pos.y);
+
+
+        p.fill(star.colour)
+        p.noStroke()
+        p.textSize(star.diameter)
+        p.textAlign(p.CENTER, p.CENTER);
+        p.text(star.letter, pos.x, pos.y)
+
 
     }
 
@@ -83,7 +93,8 @@ function createSketch(p: p5) {
             position: randomPosition(),
             velocity: randomVelocity(),
             colour: p.random(palette),
-            diameter: p.random(5, 30)
+            diameter: p.random(5, 30),
+            letter: p.random("CREATIVE".split(""))
         };
     }
 
