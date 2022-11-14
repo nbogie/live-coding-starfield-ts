@@ -10,9 +10,14 @@ function createSketch(p: p5) {
         y: number;
     }
 
+    interface Velocity {
+        x: number;
+        y: number;
+    }
+
     interface Star {
         position: Position;
-        speed: number;
+        velocity: Velocity;
     }
 
     let stars: Star[];
@@ -23,7 +28,7 @@ function createSketch(p: p5) {
     //called once at startup
     function setup() {
         const myCanvas = p.createCanvas(p.windowWidth, p.windowHeight);
-        stars = createStars();
+        stars = createAllStars();
     }
 
 
@@ -40,17 +45,8 @@ function createSketch(p: p5) {
         }
     }
 
-    function updateAllStars() {
-        for (const star of stars) {
-            updateOneStar(star);
-        }
-    }
 
-    function updateOneStar(s: Star): void {
-        s.position.x += s.speed;
-    }
-
-    function createStars(): Star[] {
+    function createAllStars(): Star[] {
         const newStars: Star[] = [];
         for (let i = 0; i < 100; i++) {
 
@@ -58,16 +54,30 @@ function createSketch(p: p5) {
             newStars.push(star);
         }
 
-
-
         return newStars;
     }
 
     function createOneStar(): Star {
         return {
             position: randomPosition(),
-            speed: p.random(1, 3)
+            velocity: randomVelocity()
         };
+    }
+
+    function updateAllStars() {
+        for (const star of stars) {
+            updateOneStar(star);
+        }
+    }
+
+    function updateOneStar(s: Star): void {
+        s.position.x += s.velocity.x;
+        s.position.y += s.velocity.y;
+    }
+
+
+    function randomVelocity(): Velocity {
+        return { x: p.random(-3, 3), y: p.random(-3, 3) }
     }
 
     function randomPosition(): Position {
