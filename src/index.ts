@@ -28,29 +28,28 @@ function createSketch(p: p5) {
 
     //called every 1/60th of a second
     function draw() {
-        //visualise all stars
+        p.background('white')
         drawAllStars()
-
-        //update (move) all stars
         updateAllStars()
-        // p.circle(p.random(0, 500), 50, 50);
     }
 
     function drawAllStars() {
         for (const star of stars) {
-            p.circle(star.position.x, star.position.y, 30);
+            p.circle(star.position.x, star.position.y, 10);
         }
     }
 
     function updateAllStars() {
-
+        for (const star of stars) {
+            star.position.x += 1;
+        }
     }
 
 
     function createStars(): Star[] {
         const newStars: Star[] = [];
         console.log("p.width is ", p.width)
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 1000; i++) {
 
             const position: Position = {
                 x: p.random(0, p.width),
