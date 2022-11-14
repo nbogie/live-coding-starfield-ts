@@ -115,7 +115,7 @@ function createSketch(p: p5) {
 
     function randomPosition(): Position {
         return {
-            x: p.random(0, p.width),
+            x: p.random(-50, p.width + 50),
             y: p.random(0, p.height)
         }
     }
