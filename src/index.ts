@@ -71,7 +71,11 @@ function createSketch(p: p5) {
     }
 
     function updateOneStar(s: Star): void {
-        s.position.x += s.velocity.x;
+
+        const speedMultiplier = p.map(p.mouseY, 0, p.height, 0.1, 3, true)
+
+        s.position.x += speedMultiplier * s.velocity.x;
+
         s.position.y += s.velocity.y;
     }
 
