@@ -36,7 +36,7 @@ function createSketch(p: p5) {
 
     //called every 1/60th of a second
     function draw() {
-        p.background('white')
+        p.background(30)
         drawAllStars()
         updateAllStars()
     }
@@ -51,7 +51,7 @@ function createSketch(p: p5) {
 
 
         const pos = star.position;
-
+        p.stroke(255);
         const lineLength = star.velocity.x * 10 * calculateMouseSpeedMultiplier();
         p.line(pos.x, pos.y, pos.x - lineLength, pos.y);
 
