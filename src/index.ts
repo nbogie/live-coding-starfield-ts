@@ -48,13 +48,14 @@ function createSketch(p: p5) {
     }
 
     function drawOneStar(star: Star) {
-        p.push()
-        p.fill(star.colour);
-        p.noStroke();
-        p.circle(star.position.x, star.position.y, star.diameter);
-        p.pop()
-    }
 
+
+        const pos = star.position;
+
+        const lineLength = star.velocity.x * 10 * calculateMouseSpeedMultiplier();
+        p.line(pos.x, pos.y, pos.x - lineLength, pos.y);
+
+    }
 
 
     function createAllStars(): Star[] {
@@ -92,10 +93,12 @@ function createSketch(p: p5) {
         }
     }
 
+    function calculateMouseSpeedMultiplier(): number {
+        return p.map(p.mouseY, 0, p.height, 0.1, 3, true)
+    }
     function updateOneStar(s: Star): void {
 
-        const speedMultiplier = p.map(p.mouseY, 0, p.height, 0.1, 3, true)
-        s.position.x += speedMultiplier * s.velocity.x;
+        s.position.x += calculateMouseSpeedMultiplier() * s.velocity.x;
         s.position.y += s.velocity.y;
 
 
@@ -110,7 +113,7 @@ function createSketch(p: p5) {
 
 
     function randomVelocity(): Velocity {
-        return { x: p.random(1, 3), y: 0 }
+        return { x: p.random(0.3, 3), y: 0 }
     }
 
     function randomPosition(): Position {
