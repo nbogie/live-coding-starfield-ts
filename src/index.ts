@@ -18,15 +18,24 @@ function createSketch(p: p5) {
     interface Star {
         position: Position;
         velocity: Velocity;
-        colour: string;
+        img: p5.Image;
         diameter: number;
         letter: string;
     }
 
     let stars: Star[];
+    let img1, img2;
+
     //Crucially, assign the setup and draw functions for the p5 createSketch.
+    p.preload = preload;
     p.setup = setup;
     p.draw = draw;
+
+
+    function preload() {
+        img1 = p.loadImage("assets/police.png");
+        img2 = p.loadImage("assets/firetruck.png");
+    }
 
     //called once at startup
     function setup() {
@@ -38,6 +47,8 @@ function createSketch(p: p5) {
     //called every 1/60th of a second
     function draw() {
         p.background(30)
+        p.image(img1, p.mouseX, p.mouseY)
+        p.image(img2, p.mouseY, p.mouseX)
         drawAllStars()
         updateAllStars()
     }
@@ -50,20 +61,10 @@ function createSketch(p: p5) {
 
     function drawOneStar(star: Star) {
 
-
-        const pos = star.position;
-
-        p.stroke(255);
-        const lineLength = star.velocity.x * 10 * calculateMouseSpeedMultiplier();
-        // p.line(pos.x, pos.y, pos.x - lineLength, pos.y);
-
-
-        p.fill(star.colour)
-        p.noStroke()
-        p.textSize(star.diameter)
-        p.textAlign(p.CENTER, p.CENTER);
-        p.text(star.letter, pos.x, pos.y)
-
+        p.push()
+        p.translate(star.position.x, star.position.y)
+        p.image(star.img, 0, 0)
+        p.pop()
 
     }
 
@@ -81,19 +82,12 @@ function createSketch(p: p5) {
 
     function createOneStar(): Star {
 
-        const palette: string[] = [
-            "#a70267",
-            "#f10c49",
-            "#fb6b41",
-            "#f6d86b",
-            "#339194"
-        ]
 
         return {
             position: randomPosition(),
             velocity: randomVelocity(),
-            colour: p.random(palette),
             diameter: p.random(5, 30),
+            img: p.random([img1, img2]),
             letter: p.random("CREATIVE".split(""))
         };
     }
